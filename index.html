@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>チャット書式生成</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta property="og:image" content=""> -->
+<meta name="description" content="隠れん坊オンラインのチャットに書式をつけるサイトです。">
+<link href="https://use.fontawesome.com/releases/v6.7.1/css/all.css" rel="stylesheet">
+<style> 
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #333;
+      color: #fff;
+      margin-left: 2%;
+    }
+
+    #title {
+      font-size:1.7em;
+      margin: 5px 0;
+    }
+
+    
+   input[type="range"] {
+    -webkit-appearance: none;
+    width: 130px; 
+    height: 10px;
+    background: linear-gradient(to right, #fff0, #fff);
+    border-radius: 5px;
+    outline: none;
+    border: 1.5px solid #fff;
+   }
+   input[type="checkbox"], input[type="radio"], input[type="text"] {
+     transform: scale(1.2);
+   }
+   
+   input[type="color"] {
+     background-color: #444;
+     border: 1.5px solid #fff;
+     border-radius: 3px;
+     transform: scale(1.1);
+   }
+   #format-button {
+    width: 80px;
+    height: 35px;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 16px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+    border-radius: 5px;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    background-image: linear-gradient(to right, #bbf, #bff, #bbf);
+    box-shadow: 0 4px 15px 0 #bbf;
+    }
+
+  #format-button:hover {
+    background-position: 100% 0;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+  }
+
+  #copybutton {
+     background-color: transparent;
+     border: none;
+     font-size: 20px;
+     color: #fff;
+   }
+  #discordcopybutton {
+     background-color: transparent;
+     border: none;
+     font-size: 1.1em;
+     color: #fff;
+   }
+   
+   #copybutton:hover,#discordcopybutton:hover {
+     color: #fff7;
+   }
+   #preview {
+     font-size: 17px;
+   }
+
+   #credit {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.9em;
+   }
+</style>
+</head>
+<body>
+    <p><span id="title">チャット書式生成　<span style="font-size:0.7em">v1.0</span></span><br>
+    <span style="margin: 5px 0; font-size: 0.8em;">ちなみに、書式をつけたチャットは自分以外見えません()</p>
+  <div id="format">
+  <label for="text">テキスト</label>　
+  <input type="text" id="text" placeholder="ここに入力"><br><br>
+
+   <label for="colorinput">文字色&nbsp;</label>
+    <input type="color" list="colors" id="colorinput" value="#ffffff" oninput="previewAlpha()">
+        <datalist id="colors">
+ 
+      <option value="#000000"></option>
+      <option value="#333333"></option>
+      <option value="#777777"></option>
+      <option value="#aaaaaa"></option>
+      <option value="#ffffff"></option>
+    
+      <option value="#770000"></option>
+      <option value="#aa0000"></option>
+      <option value="#ff0000"></option>
+      <option value="#ff7777"></option>
+      <option value="#ffaaaa"></option>
+    
+      <option value="#774400"></option>
+      <option value="#aa5500"></option>
+      <option value="#ff7700"></option>
+      <option value="#ffaa77"></option>
+      <option value="#ffdd99"></option>
+    
+      <option value="#777700"></option>
+      <option value="#aaaa00"></option>
+      <option value="#ffff00"></option>
+      <option value="#ffff77"></option>
+      <option value="#ffffaa"></option>
+    
+      <option value="#007700"></option>
+      <option value="#00aa00"></option>
+      <option value="#00ff00"></option>
+      <option value="#77ff77"></option>
+      <option value="#aaffaa"></option>
+    
+      <option value="#007755"></option>
+      <option value="#00aa77"></option>
+      <option value="#00ffaa"></option>
+      <option value="#77ffcc"></option>
+      <option value="#aaffdd"></option>
+    
+      <option value="#007777"></option>
+      <option value="#00aaaa"></option>
+      <option value="#00ffff"></option>
+      <option value="#77ffff"></option>
+      <option value="#aaffff"></option>
+    
+      <option value="#000077"></option>
+      <option value="#0000aa"></option>
+      <option value="#0000ff"></option>
+      <option value="#7777ff"></option>
+      <option value="#aaaaff"></option>
+    
+      <option value="#440077"></option>
+      <option value="#7700aa"></option>
+      <option value="#aa00ff"></option>
+      <option value="#cc77ff"></option>
+      <option value="#ddaaff"></option>
+    
+      <option value="#770077"></option>
+      <option value="#aa00aa"></option>
+      <option value="#ff00ff"></option>
+      <option value="#ff77ff"></option>
+      <option value="#ffaaff"></option>
+    
+      <option value="#770022"></option>
+      <option value="#aa0033"></option>
+      <option value="#ff0055"></option>
+      <option value="#ff5577"></option>
+      <option value="#ff88aa"></option>
+    </datalist><br>
+        <label for="bold">書式</label>
+          <input type="checkbox" id="b" >
+          <b>太字</b>
+          <input type="checkbox" id="i">
+          <i>斜体</i>
+          <input type="checkbox" id="s" oninput="if(document.getElementById('u').checked){this.checked = false;}">
+          <s>取消線</s>
+          <input type="checkbox" id="u" oninput="if(document.getElementById('s').checked){this.checked = false;}">
+          <u>下線</u><br>
+          
+         <label for="sup">位置</label>
+          <input type="checkbox" id="sup" oninput="if(document.getElementById('sub').checked){this.checked = false;}">
+          <sup>上付き</sup>
+          <input type="checkbox" id="sub" oninput="if(document.getElementById('sup').checked){this.checked = false;}">
+          <sub>下付き</sub>
+          
+        <div style="display: flex; align-items: center; gap:10px;">
+          <label for="alpha">不透明</label>
+          <input type="range" min="0" max="255" value="255" oninput="previewAlpha()" id="alpha">
+          <div id="alphapreview"></div>
+        </div>
+    <button id="format-button" onclick="formatText()">変換</button>
+    
+    <div id="preview"></div>
+  <div id="credit"><p>Developer: fish_hell(おさかな,莉乃)<br><i class="fa-brands fa-discord" style="color: #5865f1;"></i><span style="color: #5865f1;">Discord</span>: fish_hell　
+      <button id="discordcopybutton" onclick="navigator.clipboard.writeText('fish_hell');alert('DiscordのID「fish_hell」をコピーしました')"><i class="fa-regular fa-copy"></i></button></p>
+      Special Thanks: 鏡餅<br>
+    <span onclick="share()" style="cursor: pointer; color: #bbf;"><u>このツールを共有する</u><i class="fa-solid fa-share-from-square"></i><span>
+  </div>
+<script>
+   window.onload = previewAlpha()
+    
+   function previewAlpha() {
+    let alpha = document.getElementById('alpha').value;
+    let HEXalpha = parseInt(alpha, 10).toString(16).padStart(2, '0').toUpperCase();
+    document.getElementById('alphapreview').innerHTML = `
+        <p><span style="color: #ffffff${HEXalpha};">プレビュー</span>(${alpha})</p>
+    `;
+    }
+    
+     
+    function formatText() {
+      let color = document.getElementById('colorinput').value.replace('#','').toUpperCase();
+      let colorChanged = document.getElementById('colorinput').value !== "#ffffff";
+      let b = document.getElementById('b').checked;
+      let i = document.getElementById('i').checked;
+      let s = document.getElementById('s').checked;
+      let u = document.getElementById('u').checked;
+      let sup = document.getElementById('sup').checked;
+      let sub = document.getElementById('sub').checked;
+      let a = parseInt(document.getElementById('alpha').value, 10).toString(16).padStart(2, '0').toUpperCase();
+      let alphaChanged = document.getElementById('alpha').value !== "255";
+      let text = document.getElementById('text').value || 'サンプルテキスト';
+      const preview = document.getElementById('preview');
+
+      let formatedText = text;
+      let htmltag = text;
+
+      if (u) { formatedText = "[u]" + formatedText + "[/u]"; htmltag = `<u>${htmltag}</u>`;} 
+      if (s) { formatedText = "[s]" + formatedText + "[/s]"; htmltag = `<s>${htmltag}</s>`;} 
+      if (i) { formatedText = "[i]" + formatedText + "[/i]"; htmltag = `<i>${htmltag}</i>`;} 
+      if (b) { formatedText = "[b]" + formatedText + "[/b]"; htmltag = `<b>${htmltag}</b>`;}
+      if (sup) { formatedText = "[sup]" + formatedText + "[/sup]"; htmltag = `<sup>${htmltag}</sup>`;} 
+      if (sub) { formatedText = "[sub]" + formatedText  + "[/sub]"; htmltag = `<sub>${htmltag}</sub>`;}
+      if (alphaChanged && colorChanged) { formatedText = "[" + color + a + "]" + formatedText; htmltag = `<span style="color :#${color}${a}">${htmltag}</sub>`;} 
+      else if (colorChanged){ formatedText = "[" + color + "]" + formatedText; htmltag = `<span style="color :#${color}">${htmltag}</span>`;}
+      else if (alphaChanged) { formatedText = "[" + color + a + "]" + formatedText; htmltag = `<span style="color :#${color}${a}">${htmltag}</span>`;}
+      preview.innerHTML = `
+      <p><span style="font-size: 0.7em">隠れん坊オンライン用のコード:</span><br>
+      ${formatedText}
+      <button id="copybutton" onclick="navigator.clipboard.writeText('${formatedText}');alert('${formatedText} をコピーしました。')">
+      <i class="fa-regular fa-copy"></i></button></p>
+      <p><span style="font-size: 0.7em">プレビュー:</span><br>
+      ${htmltag}
+      `
+    }
+
+    function share() {
+      navigator.share({
+        title: 'チャット書式生成ツール',
+        text: '隠れん坊オンラインのチャットで使える書式を生成することができます。',
+        url: 'https://hideio-format.vercel.app',
+      })
+    }
+</script>
+</body>
+</html>
