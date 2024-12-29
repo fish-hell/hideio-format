@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -89,17 +90,20 @@
    #preview {
      font-size: 17px;
    }
-
+   #about {
+    position: absolute;
+    top: 450px;
+    font-size: 1em;
+   }
    #credit {
     position: absolute;
-    bottom: 15px;
+    top: 720px;
     font-size: 0.9em;
    }
 </style>
 </head>
 <body>
-    <p><span id="title">チャット書式生成　<span style="font-size:0.7em">v1.0</span></span><br>
-    <span style="margin: 5px 0; font-size: 0.8em;">もちろん、書式をつけたチャットは自分以外見えません()</p>
+    <p><span id="title">チャット書式生成　<span style="font-size:0.7em">v1.1</span></span></p>
   <div id="format">
   <label for="text">テキスト</label>　
   <input type="text" id="text" placeholder="ここに入力"><br><br>
@@ -195,9 +199,19 @@
           <input type="range" min="0" max="255" value="255" oninput="previewAlpha()" id="alpha">
           <div id="alphapreview"></div>
         </div>
-    <button id="format-button" onclick="formatText()">変換</button>
+    <button id="format-button" onclick="formatText()">生成</button>
     
-    <div id="preview"></div>
+  <div id="preview"></div>
+
+  <div id="about">
+    <p><span style="font-size: 1.2em;">このツールについての説明</span><br><br>
+    このツールでは、隠れん坊オンラインでのチャットに書式をつけるためのコードを生成できるツールです。<br>
+    おそらく、チャットの左にある名前にも使われていると思います。<br>
+    まあ書式をつけた文字は他人には見えませんが。<br>
+    え？じゃあこんなツール意味ないって？<br>
+    <span style="font-size: 0.7em; opacity: 0.5;" >それ以上は禁句です()</span></p>
+  </div>
+
   <div id="credit"><p>Developer: fish_hell(おさかな,莉乃)<br><i class="fa-brands fa-discord" style="color: #5865f1;"></i><span style="color: #5865f1;">Discord</span>: fish_hell　
       <button id="discordcopybutton" onclick="navigator.clipboard.writeText('fish_hell');alert('DiscordのID「fish_hell」をコピーしました')"><i class="fa-regular fa-copy"></i></button></p>
       Special Thanks: 鏡餅<br>
